@@ -5,12 +5,11 @@ class Tags extends React.Component {
 
   render() {
     return (
-        <ul>
-          <li>coucou</li>
-            {this.props.tags.map((tag) =>
-              <li>{tag.title}</li>
-            )}
-        </ul>
+      <ul>
+        {this.props.tags.map((tag) =>
+          <li>{tag.title}</li>
+        )}
+      </ul>
     )
   }
 }

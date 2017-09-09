@@ -3,9 +3,9 @@ import reducers from './reducers';
 
 export default function configureStore() {
 
-    let middleware = applyMiddleware();
+  let middleware = applyMiddleware();
 
-    if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== 'production') {
     const devToolsExtension = window.devToolsExtension;
     if (typeof devToolsExtension === 'function') {
       middleware = compose(middleware, devToolsExtension());
