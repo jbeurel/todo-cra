@@ -1,0 +1,21 @@
+{
+  "name": "todo-cra",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "admin-on-rest": "^1.2.3",
+    "aor-firebase-client": "^0.0.10",
+    "cross-env": "^5.0.5",
+    "npm-run-all": "^4.1.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-scripts": "1.0.13"
+  },
+  "scripts": {
+    "start": "run-p start.js",
+    "start.js": "cross-env NODE_PATH=. react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
