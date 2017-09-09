@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import AdminOnRest from 'src/views/components/admin-on-rest';
+import Tags from 'src/views/components/tags/tags-component'
 
 class App extends Component {
   render() {
@@ -14,6 +15,7 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <Tags/>
         <AdminOnRest/>
       </div>
     );
