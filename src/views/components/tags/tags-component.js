@@ -3,6 +3,11 @@ import {connect} from 'react-redux'
 
 class Tags extends React.Component {
 
+  componentWillMount() {
+    console.log('coucou componentWillMount');
+    this.props.testAction();
+  }
+
   render() {
     return (
       <ul>
@@ -15,7 +20,11 @@ class Tags extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return { tags: state.tags }
+  return { tags: state.tags }
 }
 
-export default connect(mapStateToProps)(Tags)
+function mapDispatchToProps(dispatch) {
+  return {testAction: () => dispatch({type: 'TEST_ACTION', payload: {coucou: 'coucou'}})}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tags)
