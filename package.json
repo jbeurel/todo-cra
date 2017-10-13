@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "admin-on-rest": "^1.2.3",
     "aor-firebase-client": "^0.0.10",
     "cross-env": "^5.0.5",
     "firebase": "^4.5.0",

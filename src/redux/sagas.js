@@ -1,4 +1,6 @@
 import firebase from 'firebase';
+import { eventChannel, END } from 'redux-saga';
+import { call, take } from 'redux-saga/effects';
 require("firebase/firestore");
 
 firebase.initializeApp({
@@ -9,10 +11,22 @@ firebase.initializeApp({
 
 const db = firebase.firestore();
 
-export default function* sagas() {
-    const tags = yield db.collection('tags').get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            console.log(doc.id, doc.data());
-        });
+function firebaseChannel() {
+    return eventChannel(emitter => {
+
+        db.collection('tags').onSnapshot((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                emitter(doc.data())
+            })});
+
+        return() => console.log('coucou stop')
     });
+}
+    
+export default function* sagas() {
+    const chan = yield call(firebaseChannel)
+    while (true) {
+        const snapshot = yield take(chan);
+        console.log('coucoucou', snapshot)
+    }
 }
