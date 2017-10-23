@@ -20,7 +20,7 @@ class Tags extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return { tags: state.tags }
+  return { tags: state.tags.tags }
 }
 
 function mapDispatchToProps(dispatch) {
