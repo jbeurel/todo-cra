@@ -1,6 +1,6 @@
 import firebase from 'firebase';
-import { eventChannel, END, delay, buffers } from 'redux-saga';
-import { call, take, race, delay } from 'redux-saga/effects';
+import { eventChannel, buffers } from 'redux-saga';
+import { call, take, all, fork, delay } from 'redux-saga/effects';
 require("firebase/firestore");
 
 firebase.initializeApp({
@@ -17,46 +17,23 @@ function firebaseChannel() {
         db.collection('tags').onSnapshot((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 emitter(doc.data())
-            })});
+            })}
+        );
 
         return() => console.log('coucou stop')
-    }, buffers.expanding(5 ));
+    }, buffers.expanding(5));
 }
 
-export function* firabseSagas() {
-    const chan = yield call(firebaseChannel)
+export function* firebaseSagas() {
+    const chan = yield call(firebaseChannel);
     while (true) {
         const snapshot = yield take(chan);
-
-        console.log('coucoucou', snapshot)
+        console.log('Coucou Snapshot', snapshot)
     }
-}
-
-async function getTags() {
-    return db.collection('tags').get();
-}
-
-function* getTagsSaga() {
-    yield put({type: 'SET_LOADING');
-    try {
-        const tags = yield race([
-            call(getTags),
-            delay(5000),
-        ]);
-    }
-
-    } finally {
-        yield put({type: 'UNSET_LOADING');
-    }
-}
-
-
-function* () {
-    yield takeEvery('GET_SAGAS', getTagsSaga);
 }
 
 export default function*() {
     yield all([
-        fork(firebaseSaga), fork()
+        fork(firebaseSagas)
     ])
 }
