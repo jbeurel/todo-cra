@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import { eventChannel, buffers } from 'redux-saga';
-import { call, take, all, fork, delay } from 'redux-saga/effects';
+import { call, put, take, all, fork } from 'redux-saga/effects';
 require("firebase/firestore");
 
 firebase.initializeApp({
@@ -14,9 +14,9 @@ const db = firebase.firestore();
 function firebaseChannel() {
     return eventChannel(emitter => {
 
-        db.collection('tags').onSnapshot((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                emitter(doc.data())
+        db.collection('tags').onSnapshot((snapshot) => {
+            snapshot.docChanges.forEach((change) => {
+                emitter(change)
             })}
         );
 
@@ -27,8 +27,16 @@ function firebaseChannel() {
 export function* firebaseSagas() {
     const chan = yield call(firebaseChannel);
     while (true) {
-        const snapshot = yield take(chan);
-        console.log('Coucou Snapshot', snapshot)
+        const change = yield take(chan);
+        if (change.type === "added") {
+            yield put({type: "TAG_ADDED", tag: change.doc.data()});
+        }
+        if (change.type === "modified") {
+            yield put({type: "TAG_MODIFIED", tag: change.doc.data()});
+        }
+        if (change.type === "removed") {
+            yield put({type: "TAG_REMOVED", tag: change.doc.data()});
+        }
     }
 }
 
