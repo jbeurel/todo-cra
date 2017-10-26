@@ -1,21 +1,11 @@
-export function tagsReducer(state = {tags: []}, action) {
+import { List, Map } from 'immutable';
+const init = Map();
+
+export function tagsReducer(state = init, action) {
 
     switch (action.type) {
         case 'TAG_ADDED':
-            // TODO: Remplacer par une fonction immutable
-            console.log('coucou state before', state);
-
-            return Object.assign({}, state, {
-                tags: [
-                    ...state.tags,
-                    {
-                        key: action.tag.title,
-                        title: action.tag.body
-                    }
-                ]
-            });
-
-        case 'TAG_MODIFIED':
+            return state.set(action.tag.id, action.tag);
 
         default:
             return state;

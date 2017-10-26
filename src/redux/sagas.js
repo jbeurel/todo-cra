@@ -30,7 +30,7 @@ export function* firebaseSagas() {
         const change = yield take(chan);
         if (change.type === "added") {
             // Todo: Stocker les donneés en utilisant data[doc.id] = doc.data -> https://github.com/prescottprue/redux-firestore/blob/e2b219aac5701dbdb0428b5b47be3000311258dd/src/utils/query.js
-            yield put({type: "TAG_ADDED", tag: change.doc.data()});
+            yield put({type: "TAG_ADDED", tag: {id: change.doc.id, ...change.doc.data()}});
         }
         if (change.type === "modified") {
             yield put({type: "TAG_MODIFIED", tag: change.doc.data()});
