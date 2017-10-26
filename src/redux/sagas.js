@@ -36,7 +36,7 @@ export function* firebaseSagas() {
             yield put({type: "TAG_MODIFIED", tag: {id: change.doc.id, ...change.doc.data()}});
         }
         if (change.type === "removed") {
-            yield put({type: "TAG_REMOVED", tag: change.doc.data()});
+            yield put({type: "TAG_REMOVED", tag: {id: change.doc.id, ...change.doc.data()}});
         }
     }
 }
