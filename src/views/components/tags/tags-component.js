@@ -1,6 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
+import TagForm from 'src/views/components/tag-form'
+
+
 class Tags extends React.Component {
 
   componentWillMount() {
@@ -9,11 +12,14 @@ class Tags extends React.Component {
 
   render() {
     return (
-      <ul>
+      <div>
         {this.props.tags.valueSeq().map((tag) =>
-          <li key={tag.id}>{tag.title}</li>
+          <div key={tag.id}>
+            <span>{tag.id} : {tag.title} | {tag.body}</span>
+            <TagForm/>
+          </div>
         )}
-      </ul>
+      </div>
     )
   }
 }
