@@ -4,15 +4,14 @@ import {connect} from 'react-redux'
 class Tags extends React.Component {
 
   componentWillMount() {
-    console.log('coucou componentWillMount');
     this.props.testAction();
   }
 
   render() {
     return (
       <ul>
-        {this.props.tags.map((tag) =>
-          <li>{tag.title}</li>
+        {this.props.tags.valueSeq().map((tag) =>
+          <li key={tag.id}>{tag.title}</li>
         )}
       </ul>
     )
