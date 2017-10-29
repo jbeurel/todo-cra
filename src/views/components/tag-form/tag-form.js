@@ -26,6 +26,4 @@ class TagForm extends React.Component {
   };
 }
 
-export default reduxForm({
-  form: 'tag-form', // a unique identifier for this form
-})(TagForm);
+export default reduxForm()(TagForm);
