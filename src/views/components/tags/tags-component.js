@@ -16,7 +16,7 @@ class Tags extends React.Component {
         {this.props.tags.valueSeq().map((tag) =>
           <div key={tag.id}>
             <span>{tag.id} : {tag.title} | {tag.body}</span>
-            <TagForm form={`tag-form.${tag.id}`}/>
+            <TagForm form={`tag-form.${tag.id}`} initialValues={tag}/>
           </div>
         )}
       </div>
