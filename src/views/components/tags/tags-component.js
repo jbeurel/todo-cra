@@ -10,13 +10,17 @@ class Tags extends React.Component {
     this.props.testAction();
   }
 
+  saveTag = (data) => {
+    console.log('coucou data', data)
+  };
+
   render() {
     return (
       <div>
         {this.props.tags.valueSeq().map((tag) =>
           <div key={tag.id}>
             <span>{tag.id} : {tag.title} | {tag.body}</span>
-            <TagForm onSubmit={(data) => console.log('coucou', data)} form={`tag-form.${tag.id}`} initialValues={tag}/>
+            <TagForm onSubmit={this.saveTag} form={`tag-form.${tag.id}`} initialValues={tag}/>
           </div>
         )}
       </div>
@@ -29,7 +33,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {testAction: () => dispatch({type: 'TEST_ACTION', payload: {coucou: 'coucou'}})}
+  return {saveTag: () => dispatch({type: 'TAG_SAVE', payload: {coucou: 'coucou'}})}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tags)

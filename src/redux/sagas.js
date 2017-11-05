@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import { eventChannel, buffers } from 'redux-saga';
-import { call, put, take, all, fork } from 'redux-saga/effects';
+import { call, put, take, all, fork, takeEvery } from 'redux-saga/effects';
 require("firebase/firestore");
 
 firebase.initializeApp({
@@ -41,8 +41,18 @@ export function* firebaseSagas() {
     }
 }
 
+function* modifyData(action) {
+    const tag = yield call(db.collection('tags').doc(action.payload.id).set, action.payload);
+    console.log('coucou saga tag', tag);
+}
+
+function* modifyDataSagas() {
+    yield takeEvery("TAG_MODIFY", modifyData);
+}
+
 export default function*() {
     yield all([
-        fork(firebaseSagas)
+        fork(firebaseSagas),
+        fork(modifyDataSagas)
     ])
 }
