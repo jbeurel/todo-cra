@@ -41,12 +41,14 @@ export function* firebaseSagas() {
     }
 }
 
-function* modifyData(action) {
-    const tag = yield call(db.collection('tags').doc(action.payload.id).set, action.payload);
-    console.log('coucou saga tag', tag);
+function* modifyData(data) {
+    console.log('coucou saga tag', data);
+    db.collection('tags').doc(data.tag.id).set(data.tag);
+    // yield call(db.collection('tags').doc(tag.id).set, tag);
 }
 
 function* modifyDataSagas() {
+    console.log('coucou modifyDataSagas initialisation');
     yield takeEvery("TAG_MODIFY", modifyData);
 }
 

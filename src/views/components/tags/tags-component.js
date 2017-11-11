@@ -26,7 +26,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    saveTag: (data) => dispatch({type: 'TAG_MODIFIED', tag: data}),
+    saveTag: (tag) => dispatch({type: 'TAG_MODIFY', tag}),
   }
 }
 
