@@ -31,21 +31,19 @@ export function* firebaseSagas() {
     while (true) {
         const change = yield take(chan);
         if (change.type === "added") {
-            yield put({type: tagActions.TAG_ADDED, tag: {id: change.doc.id, ...change.doc.data()}});
+            yield put(tagActions.added({id: change.doc.id, ...change.doc.data()}));
         }
         if (change.type === "modified") {
-            yield put({type: tagActions.TAG_MODIFIED, tag: {id: change.doc.id, ...change.doc.data()}});
+            yield put(tagActions.modified({id: change.doc.id, ...change.doc.data()}));
         }
         if (change.type === "removed") {
-            yield put({type: tagActions.TAG_REMOVED, tag: {id: change.doc.id, ...change.doc.data()}});
+            yield put(tagActions.removed({id: change.doc.id, ...change.doc.data()}));
         }
     }
 }
 
 function* modifyData(data) {
-    console.log('coucou saga tag', data);
     db.collection('tags').doc(data.tag.id).set(data.tag);
-    // yield call(db.collection('tags').doc(tag.id).set, tag);
 }
 
 function* modifyDataSagas() {

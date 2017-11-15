@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import TagForm from 'src/views/components/tag-form'
 import {tagActions} from "src/tags/actions";
 
-
 class Tags extends React.Component {
 
   render() {
@@ -27,7 +26,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    saveTag: (tag) => dispatch({type: tagActions.TAG_MODIFY, tag}),
+    saveTag: (tag) => dispatch(tagActions.modify(tag)),
   }
 }
 
