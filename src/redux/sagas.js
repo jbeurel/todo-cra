@@ -43,11 +43,10 @@ export function* firebaseSagas() {
 }
 
 function* modifyData(data) {
-    db.collection('tags').doc(data.tag.id).set(data.tag);
+    yield db.collection('tags').doc(data.tag.id).set(data.tag);
 }
 
 function* modifyDataSagas() {
-    console.log('coucou modifyDataSagas initialisation');
     yield takeEvery(tagActions.TAG_MODIFY, modifyData);
 }
 
