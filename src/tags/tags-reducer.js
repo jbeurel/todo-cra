@@ -2,7 +2,6 @@ import { Map } from 'immutable';
 const init = Map();
 
 export function tagsReducer(state = init, action) {
-
     switch (action.type) {
         case 'TAG_ADDED':
         case 'TAG_MODIFIED':

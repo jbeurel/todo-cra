@@ -1,7 +1,9 @@
 import firebase from 'firebase';
 import { eventChannel, buffers } from 'redux-saga';
 import { call, put, take, all, fork, takeEvery } from 'redux-saga/effects';
+import { tagActions } from 'src/tags/actions';
 require("firebase/firestore");
+
 
 firebase.initializeApp({
     apiKey: 'AIzaSyBnBNZHkxbhcjqDYLsQGZRt8faS2t7buvU',
@@ -29,13 +31,13 @@ export function* firebaseSagas() {
     while (true) {
         const change = yield take(chan);
         if (change.type === "added") {
-            yield put({type: "TAG_ADDED", tag: {id: change.doc.id, ...change.doc.data()}});
+            yield put({type: tagActions.TAG_ADDED, tag: {id: change.doc.id, ...change.doc.data()}});
         }
         if (change.type === "modified") {
-            yield put({type: "TAG_MODIFIED", tag: {id: change.doc.id, ...change.doc.data()}});
+            yield put({type: tagActions.TAG_MODIFIED, tag: {id: change.doc.id, ...change.doc.data()}});
         }
         if (change.type === "removed") {
-            yield put({type: "TAG_REMOVED", tag: {id: change.doc.id, ...change.doc.data()}});
+            yield put({type: tagActions.TAG_REMOVED, tag: {id: change.doc.id, ...change.doc.data()}});
         }
     }
 }
@@ -48,7 +50,7 @@ function* modifyData(data) {
 
 function* modifyDataSagas() {
     console.log('coucou modifyDataSagas initialisation');
-    yield takeEvery("TAG_MODIFY", modifyData);
+    yield takeEvery(tagActions.TAG_MODIFY, modifyData);
 }
 
 export default function*() {
