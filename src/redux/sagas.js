@@ -2,6 +2,7 @@ import firebase from 'firebase';
 import { eventChannel, buffers } from 'redux-saga';
 import { call, put, take, all, fork, takeEvery } from 'redux-saga/effects';
 import { tagActions } from 'src/tags/actions';
+import { taskActions } from 'src/tasks/actions';
 require('firebase/firestore');
 
 firebase.initializeApp({
@@ -15,6 +16,18 @@ const db = firebase.firestore();
 function tagsChannel() {
   return eventChannel(emitter => {
     db.collection('tags').onSnapshot(snapshot => {
+      snapshot.docChanges.forEach(change => {
+        emitter(change);
+      });
+    });
+
+    return () => console.log('coucou stop');
+  }, buffers.expanding(5));
+}
+
+function tasksChannel() {
+  return eventChannel(emitter => {
+    db.collection('tasks').onSnapshot(snapshot => {
       snapshot.docChanges.forEach(change => {
         emitter(change);
       });
@@ -44,6 +57,34 @@ export function* firebaseTagsListener() {
   }
 }
 
+export function* firebaseTasksListener() {
+    const chan = yield call(tasksChannel);
+    while (true) {
+        const change = yield take(chan);
+        if (change.type === 'added') {
+            yield put(taskActions.added({ id: change.doc.id, ...change.doc.data() }));
+        }
+        if (change.type === 'modified') {
+            yield put(
+                taskActions.modified({ id: change.doc.id, ...change.doc.data() }),
+            );
+        }
+        if (change.type === 'removed') {
+            yield put(
+                taskActions.removed({ id: change.doc.id, ...change.doc.data() }),
+            );
+        }
+    }
+}
+
+
+function* taskUpdater(data) {
+  yield db
+    .collection('tasks')
+    .doc(data.task.id)
+    .set(data.task);
+}
+
 function* tagUpdater(data) {
   yield db
     .collection('tags')
@@ -55,9 +96,15 @@ function* firebaseTagsUpdater() {
   yield takeEvery(tagActions.TAG_MODIFY, tagUpdater);
 }
 
+function* firebaseTasksUpdater() {
+    yield takeEvery(taskActions.TASK_MODIFY, taskUpdater);
+}
+
 export default function*() {
   yield all([
     fork(firebaseTagsListener),
-    fork(firebaseTagsUpdater)
+    fork(firebaseTagsUpdater),
+    fork(firebaseTasksListener),
+    fork(firebaseTasksUpdater)
   ]);
 }
