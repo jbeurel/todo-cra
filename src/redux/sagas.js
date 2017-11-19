@@ -12,7 +12,7 @@ firebase.initializeApp({
 
 const db = firebase.firestore();
 
-function firebaseChannel() {
+function tagsChannel() {
   return eventChannel(emitter => {
     db.collection('tags').onSnapshot(snapshot => {
       snapshot.docChanges.forEach(change => {
@@ -24,8 +24,8 @@ function firebaseChannel() {
   }, buffers.expanding(5));
 }
 
-export function* firebaseSagas() {
-  const chan = yield call(firebaseChannel);
+export function* firebaseTagsListener() {
+  const chan = yield call(tagsChannel);
   while (true) {
     const change = yield take(chan);
     if (change.type === 'added') {
@@ -44,17 +44,20 @@ export function* firebaseSagas() {
   }
 }
 
-function* modifyData(data) {
+function* tagUpdater(data) {
   yield db
     .collection('tags')
     .doc(data.tag.id)
     .set(data.tag);
 }
 
-function* modifyDataSagas() {
-  yield takeEvery(tagActions.TAG_MODIFY, modifyData);
+function* firebaseTagsUpdater() {
+  yield takeEvery(tagActions.TAG_MODIFY, tagUpdater);
 }
 
 export default function*() {
-  yield all([fork(firebaseSagas), fork(modifyDataSagas)]);
+  yield all([
+    fork(firebaseTagsListener),
+    fork(firebaseTagsUpdater)
+  ]);
 }
