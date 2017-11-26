@@ -1,26 +1,26 @@
 export const taskActions = {
-  TASK_MODIFY: 'TASK_MODIFY',
-  TASK_ADDED: 'TASK_ADDED',
-  TASK_MODIFIED: 'TASK_MODIFIED',
-  TASK_REMOVED: 'TASK_REMOVED',
+  TASK_MODIFY: "TASK_MODIFY",
+  TASK_ADDED: "TASK_ADDED",
+  TASK_MODIFIED: "TASK_MODIFIED",
+  TASK_REMOVED: "TASK_REMOVED",
 
   modify: task => ({
     type: taskActions.TASK_MODIFY,
-    task,
+    task
   }),
 
   added: task => ({
     type: taskActions.TASK_ADDED,
-    task,
+    task
   }),
 
   modified: task => ({
     type: taskActions.TASK_MODIFIED,
-    task,
+    task
   }),
 
   removed: task => ({
     type: taskActions.TASK_REMOVED,
-    task,
-  }),
+    task
+  })
 };
