@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "aor-firebase-client": "^0.0.10",
     "cross-env": "^5.0.5",
     "firebase": "^4.5.0",
     "immutable": "^3.8.2",
