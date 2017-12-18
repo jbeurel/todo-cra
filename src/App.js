@@ -11,7 +11,7 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div>
+        <React.Fragment>
           <AppBar title="Title"/>
           <Grid fluid>
             <Row>
@@ -25,7 +25,7 @@ class App extends Component {
               </Col>
             </Row>
           </Grid>
-        </div>
+        </React.Fragment>
       </MuiThemeProvider>
     );
   }
