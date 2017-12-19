@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <MuiThemeProvider>
         <React.Fragment>
-          <AppBar title="Title"/>
+          <AppBar title="Best Todo App Ever!"/>
           <Grid fluid>
             <Row>
               <Col xs={6}>
