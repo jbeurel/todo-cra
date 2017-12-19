@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Divider } from 'material-ui';
+import { Divider, RaisedButton } from 'material-ui';
 
 import TaskForm from "src/views/components/task-form";
 import { taskActions } from "src/tasks/actions";
@@ -20,7 +20,12 @@ class Tasks extends React.Component {
             <Divider/>
           </div>
         ))}
-
+        <RaisedButton
+          type="button"
+          onClick={this.props.addTask}
+        >
+          Add
+        </RaisedButton>
       </React.Fragment>
     );
   }
@@ -32,7 +37,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    saveTask: task => dispatch(taskActions.modify(task))
+    saveTask: task => dispatch(taskActions.modify(task)),
+    addTask: () => dispatch(taskActions.add())
   };
 }
 

@@ -4,6 +4,11 @@ export const taskActions = {
   TASK_MODIFIED: "TASK_MODIFIED",
   TASK_REMOVED: "TASK_REMOVED",
 
+  add: () => ({
+    type: taskActions.TASK_MODIFY,
+    task: {label: ''}
+  }),
+
   modify: task => ({
     type: taskActions.TASK_MODIFY,
     task
