@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Divider, RaisedButton } from 'material-ui';
+import { Divider, RaisedButton } from "material-ui";
 
 import TaskForm from "src/views/components/task-form";
 import { taskActions } from "src/tasks/actions";
@@ -17,13 +17,10 @@ class Tasks extends React.Component {
               form={`task-form.${task.id}`}
               initialValues={task}
             />
-            <Divider/>
+            <Divider />
           </div>
         ))}
-        <RaisedButton
-          type="button"
-          onClick={this.props.addTask}
-        >
+        <RaisedButton type="button" onClick={this.props.addTask}>
           Add
         </RaisedButton>
       </React.Fragment>
