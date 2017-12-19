@@ -11,17 +11,16 @@ class Tasks extends React.Component {
       <React.Fragment>
         <Divider />
         {this.props.tasks.valueSeq().map(task => (
-          <React.Fragment>
-            <div key={task.id}>
-              <TaskForm
-                onSubmit={this.props.saveTask}
-                form={`task-form.${task.id}`}
-                initialValues={task}
-              />
-            </div>
+          <div key={task.id}>
+            <TaskForm
+              onSubmit={this.props.saveTask}
+              form={`task-form.${task.id}`}
+              initialValues={task}
+            />
             <Divider/>
-          </React.Fragment>
+          </div>
         ))}
+
       </React.Fragment>
     );
   }
