@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[TaskForm] should display 1`] = `
+<styled.form
+  onSubmit={undefined}
+>
+  <Field
+    component={[Function]}
+    name="label"
+    placeholder="Task"
+    type="text"
+    underlineShow={false}
+  />
+  <RaisedButton
+    disabled={false}
+    fullWidth={false}
+    labelPosition="after"
+    primary={false}
+    secondary={false}
+    type="submit"
+  >
+    Save
+  </RaisedButton>
+  <RaisedButton
+    disabled={false}
+    fullWidth={false}
+    labelPosition="after"
+    onClick={undefined}
+    primary={false}
+    secondary={false}
+    type="button"
+  >
+    Cancel
+  </RaisedButton>
+  <Divider
+    inset={false}
+  />
+</styled.form>
+`;
