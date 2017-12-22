@@ -3,12 +3,14 @@ import { Field } from "redux-form";
 import { RaisedButton, Divider } from "material-ui";
 import { TextField } from "redux-form-material-ui";
 
+import StyledTaskForm from "./TaskForm.style";
+
 class TaskForm extends React.Component {
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props;
 
     return (
-      <form onSubmit={handleSubmit}>
+      <StyledTaskForm onSubmit={handleSubmit}>
         <Field
           name="label"
           component={TextField}
@@ -27,7 +29,7 @@ class TaskForm extends React.Component {
           Cancel
         </RaisedButton>
         <Divider />
-      </form>
+      </StyledTaskForm>
     );
   }
 }
