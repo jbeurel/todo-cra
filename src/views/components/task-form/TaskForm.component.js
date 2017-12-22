@@ -1,5 +1,5 @@
 import React from "react";
-import { Field, reduxForm } from "redux-form";
+import { Field } from "redux-form";
 import { RaisedButton, Divider } from "material-ui";
 import { TextField } from "redux-form-material-ui";
 
@@ -32,4 +32,4 @@ class TaskForm extends React.Component {
   }
 }
 
-export default reduxForm()(TaskForm);
+export default TaskForm;
