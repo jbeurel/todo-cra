@@ -11,23 +11,31 @@ class TaskForm extends React.Component {
 
     return (
       <StyledTaskForm onSubmit={handleSubmit}>
-        <Field
-          name="label"
-          component={TextField}
-          type="text"
-          placeholder="Task"
-          underlineShow={false}
-        />
-        <RaisedButton type="submit" disabled={pristine || submitting}>
-          Save
-        </RaisedButton>
-        <RaisedButton
-          type="button"
-          disabled={pristine || submitting}
-          onClick={reset}
-        >
-          Cancel
-        </RaisedButton>
+        <div className={'field'}>
+          <Field
+            name="label"
+            component={TextField}
+            type="text"
+            placeholder="Task"
+            underlineShow={false}
+          />
+        </div>
+        <div className={'buttons'}>
+          <div className={'action'}>
+            <RaisedButton type="submit" disabled={pristine || submitting}>
+              Save
+            </RaisedButton>
+          </div>
+          <div className={'action'}>
+            <RaisedButton
+              type="button"
+              disabled={pristine || submitting}
+              onClick={reset}
+            >
+              Cancel
+            </RaisedButton>
+          </div>
+        </div>
         <Divider />
       </StyledTaskForm>
     );

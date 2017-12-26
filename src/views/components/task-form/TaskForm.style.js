@@ -4,8 +4,15 @@ const StyledTaskForm = styled.form`
   display: flex;
   justify-content: space-between;
   
-  button {
-    color: red;
+  .field {
+    flex: 1;
+  }
+  .buttons {
+    display: flex;
+
+    .action {
+      padding: 5px;
+    }
   }
 `;
 
