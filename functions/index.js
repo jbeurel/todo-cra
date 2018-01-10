@@ -2,16 +2,19 @@
 
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+const twitter = require("twitter-text");
 
 admin.initializeApp(functions.config().firebase);
 
-exports.makeUppercase = functions.firestore
+exports.tagLinking = functions.firestore
   .document("/tasks/{tasksId}")
   .onWrite(event => {
-    admin
-      .firestore()
-      .collection("tags")
-      .add({ title: "coucou", body: "functiooooon" });
+    const tags = twitter.extractHashtags(event.data.data().label);
+    console.log("coucou tags", tags);
+    // admin
+    //   .firestore()
+    //   .collection("tags")
+    //   .add({ title: "coucou", body: "functiooooon" });
 
     return event.data.ref.set(
       {
