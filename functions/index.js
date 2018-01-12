@@ -26,10 +26,17 @@ exports.tagLinking = functions.firestore
               .collection("tags")
               .add({ title: tagTitle, body: "" })
               .then(ref => {
+                console.log("coucou ref", ref);
                 console.log("coucou ref.id", ref.id);
+                console.log("coucou ref.path", ref.path);
               });
           } else {
+            console.log("coucou snapshot.docs[0].ref", snapshot.docs[0].ref);
             console.log("coucou snapshot.docs[0].id", snapshot.docs[0].id);
+            console.log(
+              "coucou snapshot.docs[0].ref.path",
+              snapshot.docs[0].ref.path
+            );
           }
         })
         .catch(() => console.log("coucou rien"));
