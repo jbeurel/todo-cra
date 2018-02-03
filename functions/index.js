@@ -3,6 +3,7 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const twitter = require("twitter-text");
+const Promise = require("bluebird");
 
 admin.initializeApp(functions.config().firebase);
 const db = admin.firestore();
@@ -12,51 +13,46 @@ exports.tagLinking = functions.firestore
   .onWrite(event => {
     const tagTitles = twitter.extractHashtags(event.data.data().label);
     console.log("coucou tagTitles", tagTitles);
-    tagTitles.map(tagTitle => {
-      db
+    // Get or Create tag from firestore
+    Promise.map(tagTitles, tagTitle => {
+      return db
         .collection("tags")
         .where("title", "==", tagTitle)
         .limit(1)
         .get()
         .then(snapshot => {
-          console.log("coucou snapshot.docs.length", snapshot.docs.length);
-
           if (snapshot.empty) {
-            db
-              .collection("tags")
-              .add({ title: tagTitle, body: "" })
-              .then(ref => {
-                // console.log("coucou ref", ref);
-                // console.log("coucou ref.id", ref.id);
-                console.log("coucou ref.path", ref.path);
-                db
-                  .collection("tasks")
-                  .doc(event.params.taskId)
-                  .collection("tags")
-                  .add({ ref: ref.path })
-                  .catch(error => {
-                    console.log("coucou 2 error", error);
-                  });
-              });
+            // return DocumentReference of the created document
+            return db.collection("tags").add({ title: tagTitle, body: "" });
           } else {
-            // console.log("coucou snapshot.docs[0].ref", snapshot.docs[0].ref);
-            // console.log("coucou snapshot.docs[0].id", snapshot.docs[0].id);
-            console.log(
-              "coucou snapshot.docs[0].ref.path",
-              snapshot.docs[0].ref.path
-            );
-            db
-              .collection("tasks")
-              .doc(event.params.taskId)
-              .collection("tags")
-              .add({ ref: snapshot.docs[0].ref.path })
-              .catch(error => {
-                console.log("coucou 2 error", error);
-              });
+            // Return DocumentReference of the existing document
+            return snapshot.docs[0].ref;
           }
-        })
-        .catch(error => console.log("coucou error", error));
-    });
+        });
+    })
+      .then(documentReferences => {
+        console.log("coucou documentReferences", documentReferences);
+        documentReferences.forEach(documentReference => {
+          console.log("coucou documentReference", documentReference);
+          return db
+            .collection("tasks")
+            .doc(event.params.taskId)
+            .collection("tags")
+            .add({ ref: documentReference.path })
+            .then(documentReference => {
+              console.log("coucou documentReference", documentReference.path);
+            })
+            .catch(error => {
+              console.log("coucou 2 error", error);
+            });
+        });
+      })
+      .then(result => {
+        console.log("coucou ! result", result);
+      });
+
+    // Problème : Chaque sauvegarde de task ajoute des relations avec
+    // les tags au lieu de remplacer la liste existante.
 
     return event.data.ref.set(
       {

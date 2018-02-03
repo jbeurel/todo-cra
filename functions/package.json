@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "firebase-admin": "^5.5.1",
     "firebase-functions": "^0.7.4",
     "twitter-text": "^2.0.2"
