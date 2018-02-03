@@ -31,28 +31,18 @@ exports.tagLinking = functions.firestore
         });
     })
       .then(documentReferences => {
-        console.log("coucou documentReferences", documentReferences);
-        documentReferences.forEach(documentReference => {
-          console.log("coucou documentReference", documentReference);
-          return db
-            .collection("tasks")
-            .doc(event.params.taskId)
-            .collection("tags")
-            .add({ ref: documentReference.path })
-            .then(documentReference => {
-              console.log("coucou documentReference", documentReference.path);
-            })
-            .catch(error => {
-              console.log("coucou 2 error", error);
-            });
+        const paths = documentReferences.map(documentReference => {
+          return documentReference.path;
         });
+        console.log("coucou paths", paths);
+        return db
+          .collection("tasks")
+          .doc(event.params.taskId)
+          .set({ tags: paths }, { merge: true });
       })
       .then(result => {
-        console.log("coucou ! result", result);
+        console.log("coucou !! result", result);
       });
-
-    // Problème : Chaque sauvegarde de task ajoute des relations avec
-    // les tags au lieu de remplacer la liste existante.
 
     return event.data.ref.set(
       {
