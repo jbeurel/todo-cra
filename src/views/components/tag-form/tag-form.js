@@ -15,7 +15,7 @@ class TagForm extends React.Component {
     return (
       <form onSubmit={handleSubmit}>
         <Field
-          name="title"
+          name="body"
           component={this.renderField}
           type="text"
           onChange={this.handleChange}
