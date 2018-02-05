@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const StyledTaskForm = styled.form`
   display: flex;
   justify-content: space-between;
-  
+
   .field {
     flex: 1;
   }
