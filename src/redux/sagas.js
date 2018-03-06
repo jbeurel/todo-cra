@@ -1,8 +1,8 @@
 import firebase from 'firebase';
 import { eventChannel, buffers } from 'redux-saga';
 import { call, put, take, all, fork, takeEvery } from 'redux-saga/effects';
-import { tagActions } from 'src/tags/actions';
-import { taskActions } from 'src/tasks/actions';
+import { tagActions } from 'src/redux/entities/tags/tags.actions';
+import { taskActions } from 'src/redux/entities/tasks/tasks.actions';
 require('firebase/firestore');
 
 firebase.initializeApp({

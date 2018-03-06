@@ -1,0 +1,1 @@
+export { tagsReducer } from './tags.reducer';

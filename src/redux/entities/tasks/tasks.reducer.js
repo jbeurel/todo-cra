@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import { taskActions } from "src/tasks/actions";
+import { taskActions } from "src/redux/entities/tasks/tasks.actions";
 
 const init = Map();
 

@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import { tagActions} from "src/tags/actions";
+import { tagActions} from "src/redux/entities/tags/tags.actions";
 
 const init = Map();
 

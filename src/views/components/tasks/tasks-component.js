@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Divider, RaisedButton } from "material-ui";
 
 import TaskForm from "src/views/components/task-form";
-import { taskActions } from "src/tasks/actions";
+import { taskActions } from "src/redux/entities/tasks/tasks.actions";
 
 class Tasks extends React.Component {
   render() {

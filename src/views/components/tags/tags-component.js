@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 
 import TagForm from 'src/views/components/tag-form'
-import {tagActions} from "src/tags/actions";
+import {tagActions} from "src/redux/entities/tags/tags.actions";
 
 class Tags extends React.Component {
 
