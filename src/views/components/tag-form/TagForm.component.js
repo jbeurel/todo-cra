@@ -1,5 +1,5 @@
 import React from "react";
-import { Field, reduxForm } from "redux-form";
+import { Field } from "redux-form";
 import { TextField } from "redux-form-material-ui";
 
 class TagForm extends React.Component {
@@ -27,4 +27,4 @@ class TagForm extends React.Component {
   }
 }
 
-export default reduxForm()(TagForm);
+export default TagForm;
