@@ -1,1 +1,1 @@
-export { default } from "./TagForm.component";
+export { default } from "./TagForm.container";
