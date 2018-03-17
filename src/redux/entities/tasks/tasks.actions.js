@@ -1,16 +1,22 @@
 export const taskActions = {
   TASK_MODIFY: "TASK_MODIFY",
   TASK_ADDED: "TASK_ADDED",
+  TASK_REMOVE: "TASK_REMOVE",
   TASK_MODIFIED: "TASK_MODIFIED",
   TASK_REMOVED: "TASK_REMOVED",
 
   add: () => ({
     type: taskActions.TASK_MODIFY,
-    task: {label: ''}
+    task: { label: "" }
   }),
 
   modify: task => ({
     type: taskActions.TASK_MODIFY,
+    task
+  }),
+
+  remove: task => ({
+    type: taskActions.TASK_REMOVE,
     task
   }),
 

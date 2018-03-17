@@ -7,7 +7,13 @@ import StyledTaskForm from "./TaskForm.style";
 
 class TaskForm extends React.Component {
   render() {
-    const { handleSubmit, pristine, reset, submitting } = this.props;
+    const {
+      handleSubmit,
+      pristine,
+      reset,
+      submitting,
+      initialValues
+    } = this.props;
 
     return (
       <StyledTaskForm onSubmit={handleSubmit}>
@@ -34,6 +40,14 @@ class TaskForm extends React.Component {
               onClick={reset}
             >
               Cancel
+            </RaisedButton>
+          </div>
+          <div className={"action"}>
+            <RaisedButton
+              type="button"
+              onClick={() => this.props.remove(initialValues)}
+            >
+              Delete
             </RaisedButton>
           </div>
         </div>
