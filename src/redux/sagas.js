@@ -98,8 +98,19 @@ function* tagUpdater(data) {
     .set(data.tag);
 }
 
+function* tagRemover(data) {
+  yield db
+    .collection("tags")
+    .doc(data.tag.id)
+    .delete();
+}
+
 function* firebaseTagsUpdater() {
   yield takeEvery(tagActions.TAG_MODIFY, tagUpdater);
+}
+
+function* firebaseTagsRemover() {
+  yield takeEvery(tagActions.TAG_REMOVE, tagRemover);
 }
 
 function* firebaseTasksUpdater() {
@@ -114,6 +125,7 @@ export default function*() {
   yield all([
     fork(firebaseTagsListener),
     fork(firebaseTagsUpdater),
+    fork(firebaseTagsRemover),
     fork(firebaseTasksListener),
     fork(firebaseTasksUpdater),
     fork(firebaseTasksRemover)

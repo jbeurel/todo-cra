@@ -7,7 +7,13 @@ import StyledTagForm from "./TagForm.style";
 
 class TagForm extends React.Component {
   render() {
-    const { handleSubmit, pristine, reset, submitting } = this.props;
+    const {
+      handleSubmit,
+      pristine,
+      reset,
+      submitting,
+      initialValues
+    } = this.props;
 
     return (
       <StyledTagForm onSubmit={handleSubmit}>
@@ -37,6 +43,14 @@ class TagForm extends React.Component {
                 Cancel
               </RaisedButton>
             </div>
+            <div className={"action"}>
+              <RaisedButton
+                type="button"
+                onClick={() => this.props.remove(initialValues)}
+              >
+                Delete
+              </RaisedButton>
+            </div>
           </div>
         </div>
         <Divider />
@@ -44,7 +58,7 @@ class TagForm extends React.Component {
           name="body"
           component={TextField}
           multiLine={true}
-          rows={5}
+          rows={3}
           type="text"
           placeholder="Body"
           underlineShow={false}
